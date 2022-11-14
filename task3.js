@@ -5,7 +5,10 @@ let btnShow = document.querySelector('.btn-show')
 btnSend.addEventListener('click', () => {
     let messenger = new Messenger
     messenger.send()
-    messenger.toHtml()
+    author = document.querySelector('.name')
+    author.value=''
+    text = document.querySelector('.message')
+    text.value = ''
 })
 
 btnShow.addEventListener('click', () => {
@@ -20,8 +23,15 @@ class Message {
         this.text = text
     }
     toHtml() {
-        let p = `<p>[${this.arr[0][1]}] [${this.arr[0][0]}]: [${this.arr[0][2]}]</p>`
-        return p
+        let a = new Array
+        his.style.display = 'none'
+        for(let i=0; i<this.arr.length; i++) {
+            let p = document.createElement('p')
+            p.innerHTML = `${this.arr[i][2]}  ${this.arr[i][0]}: ${this.arr[i][1]}`
+            a.push(p)
+            his.appendChild(p)
+
+        } 
     }
 }
 
@@ -31,22 +41,18 @@ class Messenger extends Message{
         this.arr = []
     }
     show_history() {
-        let a =this.toHtml()
-        console.log(a)
-        his.insertAdjacentElement('beforeend', a)
+        his.style.display = 'block'
     }
     send(author, text) {
         author = document.querySelector('.name')
         this.name = author.value
-        console.log(this.name)
         text = document.querySelector('.message')
         this.text = text.value
         let time = gettime()
-        this.data = time
-        let str = [this.name, this.text, this.data]
-        console.log(str)
+        this.date = time
+        let str = [this.name, this.text, this.date]
         this.arr.push(str)
-        console.log(this.arr)
+        this.toHtml()
     }
 }
 
